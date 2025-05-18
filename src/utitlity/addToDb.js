@@ -1,5 +1,5 @@
 const getStoredReadList = () => {
-  const storedListStr = localStorage.get('read-list');
+  const storedListStr = localStorage.getItem('read-list');
   if (storedListStr) {
     const storedList = JSON.parse(storedListStr);
     return storedList;
@@ -18,3 +18,4 @@ const addToStoredReadList = (id) => {
     localStorage.setItem('read-list', storedListstr);
   }
 };
+export { addToStoredReadList };

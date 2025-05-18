@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLoaderData, useParams } from 'react-router-dom'
+import { addToStoredReadList } from '../../utitlity/addToDb'
 
 const BookDetail = () => {
     const {bookId}=useParams()
@@ -10,7 +11,7 @@ const BookDetail = () => {
 
     const{bookId:curentBookId,image,bookName,category,author,review,totalPages,rating,tags,publisher,yearOfPublishing,}=book
 
-    const handleMarkAsRead=()=>{
+    const handleMarkAsRead=(id)=>{
         /**
          * 1.understand what to store and save =>bookId
          * 2.Where to store:databse
@@ -20,6 +21,7 @@ const BookDetail = () => {
          * 
          * 
          */
+        addToStoredReadList(id)
 
     }
 
@@ -59,8 +61,8 @@ const BookDetail = () => {
       <div className='flex gap-4'>
         <button 
         className='btn btn-outline btn-accent'
-        onClick={handleMarkAsRead}
-        >Read</button>
+        onClick={()=>handleMarkAsRead(bookId)}
+        >Mark as Read</button>
         <button className='btn btn-accent'>WishList</button>
       </div>
     </div>
