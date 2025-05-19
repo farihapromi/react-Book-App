@@ -29,7 +29,9 @@ const Book = ({book}) => {
     <div className="card-actions justify-between">
       <div className="">{category}</div>
    <div className="flex items-center gap-2">
+    <div>Total Pages: {totalPages}</div>
   <span>{rating}</span>
+
   <div className="rating">
     <input type="radio" name="rating-4" className="mask mask-star-2 bg-green-500" />
     <input type="radio" name="rating-4" className="mask mask-star-2 bg-green-500" defaultChecked />

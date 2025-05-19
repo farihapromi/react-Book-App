@@ -8,6 +8,7 @@ import Book from '../Book/Book';
 const ListedBooks = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const[readList,setReadList]=useState([])
+    const [sort,setSort]=useState('')
     const allBooks=useLoaderData()
 
 
@@ -18,11 +19,35 @@ const ListedBooks = () => {
       setReadList(readBookList)
 
     },[])
+    
+    const handleSort=sortType=>{
+      setSort(sortType)
+      if(sortType==='No of pages'){
+        const sortedreadList=[...readList].sort((a,b)=>a.totalPages-b.totalPages)
+        setReadList(sortedreadList)
+      }
+      if(sortType==='Ratings'){
+        const sortedReadList=[...readList].sort((a,b)=>a.rating-b.rating)
+        setReadList(sortedReadList)
+      }
+    }
 
 
   return (
     <div>
         <h3 className="text-3xl">Listed Books</h3>
+
+        <div className="dropdown">
+  <div tabIndex={0} role="button" className="btn m-1 bg-green-600 text-white">
+    {
+    sort?  `Sort By:${sort}`:'Sort By'
+    }
+    </div>
+  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+    <li onClick={()=>handleSort('Ratings')}><a>Ratings</a></li>
+    <li onClick={()=>handleSort('No of pages')}><a>Number of pages</a></li>
+  </ul>
+</div>
     
 
       
@@ -38,7 +63,7 @@ const ListedBooks = () => {
 
 
       <TabPanel className='text-3xl'>Books I read :{readList.length}
-       <div className='flex gap-8 flex-cols-1 md:flex-cols-2 lg:flex-cols-3 p-6 mt-8'>
+     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6 mt-8'>
           {
             readList.map(book=><Book key={book.bookId} book={book}/>)
           }
